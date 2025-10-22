@@ -1,12 +1,12 @@
 #include <iostream>
 #include <sstream>
 
-class Report {
+class ReportGenerator {
 public:
     std::string title;
     std::string data;
 
-    Report(const std::string& t, const std::string& d) : title(t), data(d) {}
+    ReportGenerator(const std::string& t, const std::string& d) : title(t), data(d) {}
 
     int processData() {
         std::istringstream iss(data);
@@ -17,14 +17,26 @@ public:
         return sum;
     }
 
-    std::string format() {
-        return "<h1>" + title + "</h1>\n<p>" + title + ": " + std::to_string(processData()) + "</p>";
+};
+
+class ReportFormatter {
+    public:
+
+        ReportFormatter(){}
+
+        std::string format(std::string title, int sum) {
+            return "<h1>" + title + "</h1>\n<p>" + title + ": " + std::to_string(sum) + "</p>";
     }
 
 };
 
 // Included for demonstration
 int main() {
-    Report report("Total sales", "51 42 39 60");
-    std::cout << report.format();
+    ReportGenerator reportGenerator("Total sales", "51 42 39 60");
+    ReportFormatter reportFormatter;
+
+    int sum = reportGenerator.processData();
+
+
+    std::cout << reportFormatter.format(reportGenerator.title, sum);
 }

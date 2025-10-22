@@ -2,23 +2,31 @@
 
 class Bird {
 public:
-    virtual void fly() {
-        std::cout << "Bird is flying\n";
-    };
-    
     virtual void lay_egg() {
-        std::cout << "Egg";
+        std::cout << "Egg\n";
     }
+};
+
+class FlyingBird : public Bird {
+    public:
+        void fly() {
+            std::cout << "Bird is flying\n";
+        }
 };
 
 class Ostrich : public Bird {
 public:
-    void fly() override {
-        throw std::runtime_error("Ostriches can't fly!");
+    void run()  {
+        std::cout << "Ostrich is running!\n";
     }
 };
 
-class Eagle: public Bird {};
+class Eagle: public FlyingBird {
+    public:
+        void fly() {
+        std::cout << "Bird is flying\n";
+    };
+};
 
 // For demonstration
 int main() {
@@ -29,5 +37,9 @@ int main() {
     eagle.fly();
 
     ostrich.lay_egg();
-    ostrich.fly();
+    ostrich.run();
 }
+
+//The bird class implies that all birds should be able to fly, but the ostrich class removes that functionality
+//Based on the Liscov Substitution Principle, a subclass should be able to act as a stand-in for a parent class
+//A better formulation might to extend bird class with FlyingBird and make an eagle a sublcass of that 
